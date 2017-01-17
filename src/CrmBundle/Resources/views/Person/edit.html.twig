@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Person edit</h1>
+
+    {% if errors is defined %}
+        <ul>
+            {% for error in errors %}
+                <li>
+                    {{ error.message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {{ form_start(edit_form) }}
+    <table>
+        <tr>
+            <td>{{ form_label(edit_form.name) }}</td>
+            <td>{{ form_widget(edit_form.name) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(edit_form.surname) }}</td>
+            <td>{{ form_widget(edit_form.surname) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(edit_form.description) }}</td>
+            <td>{{ form_widget(edit_form.description) }}</td>
+        </tr>
+        {{ form_end(edit_form) }}
+        {{ form_start(address_form) }}
+        <tr>
+            <td>{{ form_label(address_form.city) }}</td>
+            <td>{{ form_widget(address_form.city) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(address_form.street) }}</td>
+            <td>{{ form_widget(address_form.street) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(address_form.blockNo) }}</td>
+            <td>{{ form_widget(address_form.blockNo) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(address_form.appartNo) }}</td>
+            <td>{{ form_widget(address_form.appartNo) }}</td>
+        </tr>
+        {{ form_end(address_form) }}
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('new_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

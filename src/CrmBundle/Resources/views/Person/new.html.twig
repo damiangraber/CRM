@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Person creation</h1>
+    {% if errors is defined %}
+        <ul>
+            {% for error in errors %}
+                <li>
+                    {{ error.message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {{ form_start(form) }}
+    <table>
+        <tr>
+            <td>{{ form_label(form.name) }}</td>
+            <td>{{ form_widget(form.name) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.surname) }}</td>
+            <td>{{ form_widget(form.surname) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(form.description) }}</td>
+            <td>{{ form_widget(form.description) }}</td>
+        </tr>
+
+        {{ form_start(address_form) }}
+        <tr>
+            <td>{{ form_label(address_form.city) }}</td>
+            <td>{{ form_widget(address_form.city) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(address_form.street) }}</td>
+            <td>{{ form_widget(address_form.street) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(address_form.blockNo) }}</td>
+            <td>{{ form_widget(address_form.blockNo) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(address_form.appartNo) }}</td>
+            <td>{{ form_widget(address_form.appartNo) }}</td>
+        </tr>
+
+
+        {{ form_start(telephone_form) }}
+        <tr>
+            <td>{{ form_label(telephone_form.telNo) }}</td>
+            <td>{{ form_widget(telephone_form.telNo) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(telephone_form.type) }}</td>
+            <td>{{ form_widget(telephone_form.type) }}</td>
+        </tr>
+        {{ form_start(email_form) }}
+        <tr>
+            <td>{{ form_label(email_form.email) }}</td>
+            <td>{{ form_widget(email_form.email) }}</td>
+        </tr>
+        <tr>
+            <td>{{ form_label(email_form.type) }}</td>
+            <td>{{ form_widget(email_form.type) }}</td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <input type="submit" value="Create">
+            </td>
+        </tr>
+
+        {{ form_end(form) }}
+        {{ form_end(address_form) }}
+        {{ form_end(telephone_form) }}
+        {{ form_end(email_form) }}
+
+    </table>
+
+
+    <ul>
+        <li>
+            <a href="{{ path('new_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}
