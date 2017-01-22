@@ -52,24 +52,39 @@ class PersonController extends Controller {
         $emailForm = $this->createForm('CrmBundle\Form\EmailType');
         $telephoneForm = $this->createForm('CrmBundle\Form\TelephoneType');
         $addressForm = $this->createForm('CrmBundle\Form\AddressType'/*, $address*/);
+
         $form->handleRequest($request);
         $addressForm->handleRequest($request);
         $telephoneForm->handleRequest($request);
         $emailForm->handleRequest($request);
 
-        /*if ($addressForm->isSubmitted() && $addressForm->isValid()) {
+/*
+        if ($addressForm->isSubmitted() && $addressForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('new_edit', array('id' => $person->getId()));
         }*/
 
-        if ($form->isSubmitted()  && $addressForm->isSubmitted() && $telephoneForm->isSubmitted() && $emailForm->isSubmitted())  {
+        if ($form->isSubmitted()  && $addressForm->isSubmitted() && $telephoneForm->isSubmitted() && $emailForm->isSubmitted()
+            )  {
+
+
             $validator = $this->get('validator');
             $errors = [];
-            $errors['errorsPerson'] = $validator->validate($person);
-            $errors['errorsAddress'] = $validator->validate($address); //tutaj w twigu poprawić
-            $errors['errorsTelephone'] = $validator->validate($telephone);
-            $errors['errorsEmail'] = $validator->validate($email);
+            if (!$validator->validate($person)) {
+                $errors['errorsPerson'] = $validator->validate($person);
+            }
+
+            if (!$validator->validate($address)) {
+                $errors['errorsAddress'] = $validator->validate($address);
+            }
+            //tutaj w twigu poprawić
+            if(!$validator->validate($telephone)) {
+                $errors['errorsTelephone'] = $validator->validate($telephone);
+            }
+            if(!$validator->validate($email)) {
+                $errors['errorsEmail'] = $validator->validate($email);
+            }
 
             $person = $form->getData();
             $address = $addressForm->getData();
@@ -79,25 +94,27 @@ class PersonController extends Controller {
             $email = $emailForm->getData();
             $email->setPerson($person);
 
-            if (count($errors) > 0) {
-                return $this->render('CrmBundle:Person:new.html.twig', array(
-                    'errors' => $errors,
-                    'form'   => $form->createView(),
-                    'address_form' => $addressForm->createView(),
-                    'email_form' => $emailForm->createView(),
-                    'telephone_form' => $telephoneForm->createView(),
-                ));
-            } else {
+
+//            if (count($errors) > 0) {
+//                return $this->render('CrmBundle:Person:new.html.twig', array(
+//                    'errors' => $errors,
+//                    'form'   => $form->createView(),
+//                    'address_form' => $addressForm->createView(),
+//                    'email_form' => $emailForm->createView(),
+//                    'telephone_form' => $telephoneForm->createView(),
+//                ));
+//            } else {
+
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($person);
-                //$em->flush($person);
+                $em->flush($person);
                 $em->persist($address);
                 $em->persist($telephone);
                 $em->persist($email);
-                $em->flush($address);
+                $em->flush($person);
 
                 return $this->redirectToRoute('new_show', array('id' => $person->getId()));
-            }
+//            }
 
         }
 

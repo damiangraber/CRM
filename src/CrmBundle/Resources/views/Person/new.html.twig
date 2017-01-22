@@ -1,12 +1,14 @@
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
     <h1>Person creation</h1>
     {% if errors is defined %}
+        {{ dump(errors.errorsPerson) }}
         <ul>
-            {% for error in errors %}
+            {% for errorPerson in errors.errorsPerson %}
                 <li>
-                    {{ error.message }}
+                    {{ errorPerson.message }}
                 </li>
             {% endfor %}
         </ul>
@@ -67,7 +69,7 @@
 
         <tr>
             <td>
-                <input type="submit" value="Create">
+                <input type="submit" value="Create"/>
             </td>
         </tr>
 
@@ -85,3 +87,5 @@
         </li>
     </ul>
 {% endblock %}
+
+
