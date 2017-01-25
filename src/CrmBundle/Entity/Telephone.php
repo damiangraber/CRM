@@ -22,9 +22,9 @@ class Telephone {
     private $id;
 
     /**
-     * @var int
+     * @var bigint
      *
-     * @ORM\Column(name="telNo", type="integer")
+     * @ORM\Column(name="telNo", type="bigint")
      */
     private $telNo;
 
