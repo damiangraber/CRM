@@ -95,15 +95,15 @@ class PersonController extends Controller {
             $email->setPerson($person);
 
 
-//            if (count($errors) > 0) {
-//                return $this->render('CrmBundle:Person:new.html.twig', array(
-//                    'errors' => $errors,
-//                    'form'   => $form->createView(),
-//                    'address_form' => $addressForm->createView(),
-//                    'email_form' => $emailForm->createView(),
-//                    'telephone_form' => $telephoneForm->createView(),
-//                ));
-//            } else {
+            if (count($errors) > 0) {
+                return $this->render('CrmBundle:Person:new.html.twig', array(
+                    'errors' => $errors,
+                    'form'   => $form->createView(),
+                    'address_form' => $addressForm->createView(),
+                    'email_form' => $emailForm->createView(),
+                    'telephone_form' => $telephoneForm->createView(),
+                ));
+            } else {
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($person);
@@ -114,7 +114,7 @@ class PersonController extends Controller {
                 $em->flush($person);
 
                 return $this->redirectToRoute('new_show', array('id' => $person->getId()));
-//            }
+            }
 
         }
 
